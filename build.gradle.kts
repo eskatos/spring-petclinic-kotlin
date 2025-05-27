@@ -4,6 +4,7 @@ group = "org.springframework.samples"
 version = "3.4.4"
 
 plugins {
+    id("spring-boot-application")
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.google.jib)
     alias(libs.plugins.kotlin.jvm)
