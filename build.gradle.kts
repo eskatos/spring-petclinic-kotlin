@@ -7,26 +7,7 @@ plugins {
     id("spring-boot-application")
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 dependencies {
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-    developmentOnly(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -51,11 +32,3 @@ dependencies {
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
-
-jib {
-    to {
-        image = "springcommunity/spring-petclinic-kotlin"
-        tags = setOf(project.version.toString(), "latest")
-    }
-}
-
