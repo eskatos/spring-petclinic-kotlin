@@ -4,16 +4,11 @@ group = "org.springframework.samples"
 version = "3.4.4"
 
 plugins {
-    val kotlinVersion = "2.1.20"
-    id("org.springframework.boot") version "3.4.5"
-    id("com.google.cloud.tools.jib") version "3.4.5"
-    kotlin("jvm") version kotlinVersion
-    kotlin("plugin.spring") version kotlinVersion
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.google.jib)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
 }
-
-val boostrapVersion = "5.3.6"
-val fontAwesomeVersion = "4.7.0"
-val webjarsLocatorLiteVersion = "1.1.0"
 
 java {
     toolchain {
@@ -51,8 +46,8 @@ dependencies {
     implementation("org.glassfish.jaxb:jaxb-runtime")
     implementation("javax.cache:cache-api")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.webjars.npm:bootstrap:$boostrapVersion")
-    implementation("org.webjars.npm:font-awesome:$fontAwesomeVersion")
+    implementation(libs.webjars.bootstrap)
+    implementation(libs.webjars.fontawesome)
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -61,7 +56,7 @@ dependencies {
 
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
-    runtimeOnly("org.webjars:webjars-locator-lite:${webjarsLocatorLiteVersion}")
+    runtimeOnly(libs.webjars.webjarsLocatorLite)
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }

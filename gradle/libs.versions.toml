@@ -1,0 +1,14 @@
+[versions]
+kotlin = "2.1.20"
+spring-boot = "3.4.5"
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+google-jib = { id = "com.google.cloud.tools.jib", version = "3.4.5" }
+
+[libraries]
+webjars-bootstrap = { module = "org.webjars.npm:bootstrap", version = "5.3.6" }
+webjars-fontawesome = { module = "org.webjars.npm:font-awesome", version = "4.7.0" }
+webjars-webjarsLocatorLite = { module = "org.webjars:webjars-locator-lite", version = "1.1.0" }
