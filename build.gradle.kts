@@ -4,38 +4,7 @@ group = "org.springframework.samples"
 version = "3.4.4"
 
 plugins {
-    val kotlinVersion = "2.1.20"
-    id("org.springframework.boot") version "3.4.5"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("com.google.cloud.tools.jib") version "3.4.5"
-    kotlin("jvm") version kotlinVersion
-    kotlin("plugin.spring") version kotlinVersion
-}
-
-val boostrapVersion = "5.3.6"
-val fontAwesomeVersion = "4.7.0"
-val webjarsLocatorLiteVersion = "1.1.0"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-repositories {
-    mavenCentral()
-    maven { url = uri("https://repo.spring.io/snapshot") }
-    maven { url = uri("https://repo.spring.io/milestone") }
+    id("spring-boot-application")
 }
 
 dependencies {
@@ -49,8 +18,8 @@ dependencies {
     implementation("org.glassfish.jaxb:jaxb-runtime")
     implementation("javax.cache:cache-api")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.webjars.npm:bootstrap:$boostrapVersion")
-    implementation("org.webjars.npm:font-awesome:$fontAwesomeVersion")
+    implementation(libs.webjars.bootstrap)
+    implementation(libs.webjars.fontawesome)
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -59,15 +28,7 @@ dependencies {
 
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
-    runtimeOnly("org.webjars:webjars-locator-lite:${webjarsLocatorLiteVersion}")
+    runtimeOnly(libs.webjars.webjarsLocatorLite)
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
-
-jib {
-    to {
-        image = "springcommunity/spring-petclinic-kotlin"
-        tags = setOf(project.version.toString(), "latest")
-    }
-}
-
