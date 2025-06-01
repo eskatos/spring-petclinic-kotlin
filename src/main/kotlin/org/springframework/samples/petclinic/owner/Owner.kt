@@ -21,6 +21,7 @@ import java.util.*
 import jakarta.persistence.*
 import jakarta.validation.constraints.Digits
 import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.Email
 
 /**
  * Simple JavaBean domain object representing an owner.
@@ -46,6 +47,10 @@ class Owner : Person() {
     @NotEmpty
     @Digits(fraction = 0, integer = 10)
     var telephone = ""
+
+    @Column(name = "email")
+    @Email
+    var email = ""
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "owner")
     var pets: MutableSet<Pet> = HashSet()
