@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.samples.petclinic.system.EmailService
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.samples.petclinic.visit.VisitRepository
 import org.springframework.test.context.junit.jupiter.SpringExtension
@@ -27,6 +28,9 @@ class VisitControllerTest {
     lateinit private var mockMvc: MockMvc
 
     @MockitoBean
+    private lateinit var emailService: EmailService
+
+    @MockitoBean
     private lateinit var visits: VisitRepository
 
     @MockitoBean
@@ -46,7 +50,7 @@ class VisitControllerTest {
 
     @Test
     fun testProcessNewVisitFormSuccess() {
-        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_PET_ID)
+        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_OWNER_ID, TEST_PET_ID)
                 .param("name", "George")
                 .param("description", "Visit Description")
         )
@@ -56,7 +60,7 @@ class VisitControllerTest {
 
     @Test
     fun testProcessNewVisitFormHasErrors() {
-        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_PET_ID)
+        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_OWNER_ID, TEST_PET_ID)
                 .param("name", "George")
         )
                 .andExpect(model().attributeHasErrors("visit"))

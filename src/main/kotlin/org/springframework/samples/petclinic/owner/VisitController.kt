@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.owner
 
 import org.springframework.samples.petclinic.visit.Visit
 import org.springframework.samples.petclinic.visit.VisitRepository
+import org.springframework.samples.petclinic.system.EmailService
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.WebDataBinder
@@ -32,7 +33,7 @@ import jakarta.validation.Valid
  * @author Antoine Rey
  */
 @Controller
-class VisitController(val visits: VisitRepository, val pets: PetRepository) {
+class VisitController(val visits: VisitRepository, val pets: PetRepository, val emailService: EmailService) {
 
     @InitBinder
     fun setAllowedFields(dataBinder: WebDataBinder) {
@@ -65,11 +66,19 @@ class VisitController(val visits: VisitRepository, val pets: PetRepository) {
 
     // Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is called
     @PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
-    fun processNewVisitForm(@Valid visit: Visit, result: BindingResult): String {
+    fun processNewVisitForm(@PathVariable("petId") petId: Int, @PathVariable("ownerId") ownerId: Int, @Valid visit: Visit, result: BindingResult): String {
         return if (result.hasErrors()) {
             "pets/createOrUpdateVisitForm"
         } else {
             visits.save(visit)
+
+            // Send email notification to the pet owner
+            val pet = pets.findById(petId)
+            val owner = pet.owner
+            if (owner != null) {
+                emailService.sendVisitNotification(owner, pet, visit)
+            }
+
             "redirect:/owners/{ownerId}"
         }
     }
