@@ -50,7 +50,7 @@ class VisitControllerTest {
 
     @Test
     fun testProcessNewVisitFormSuccess() {
-        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_OWNER_ID, TEST_PET_ID)
+        mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/visits/new", TEST_OWNER_ID, TEST_PET_ID)
                 .param("name", "George")
                 .param("description", "Visit Description")
         )
@@ -60,7 +60,7 @@ class VisitControllerTest {
 
     @Test
     fun testProcessNewVisitFormHasErrors() {
-        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_OWNER_ID, TEST_PET_ID)
+        mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/visits/new", TEST_OWNER_ID, TEST_PET_ID)
                 .param("name", "George")
         )
                 .andExpect(model().attributeHasErrors("visit"))
