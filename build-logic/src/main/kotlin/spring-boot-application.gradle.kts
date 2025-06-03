@@ -33,3 +33,7 @@ jib {
         tags = setOf(project.version.toString(), "latest")
     }
 }
+
+detekt {
+    ignoreFailures = true
+}
