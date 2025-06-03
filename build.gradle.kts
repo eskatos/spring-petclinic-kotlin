@@ -5,6 +5,7 @@ version = "3.4.4"
 
 plugins {
     id("spring-boot-application")
+    id("io.gitlab.arturbosch.detekt") version "1.22.0-RC3"
 }
 
 dependencies {
