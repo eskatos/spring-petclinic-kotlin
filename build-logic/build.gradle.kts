@@ -7,6 +7,7 @@ dependencies {
     implementation(plugin(libs.plugins.google.jib))
     implementation(plugin(libs.plugins.kotlin.jvm))
     implementation(plugin(libs.plugins.kotlin.spring))
+    implementation(plugin(libs.plugins.detekt))
 }
 
 // Helper function that transforms a Gradle Plugin alias from a

@@ -7,6 +7,7 @@ spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 google-jib = { id = "com.google.cloud.tools.jib", version = "3.4.5" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.22.0-RC3" }
 
 [libraries]
 webjars-bootstrap = { module = "org.webjars.npm:bootstrap", version = "5.3.6" }
